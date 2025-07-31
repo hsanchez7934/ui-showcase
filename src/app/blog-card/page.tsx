@@ -26,13 +26,13 @@ export default function BlogCardPage() {
 		<PageMainBox pageTitle="Blog Card">
 			<div className="h-full flex flex-col px-5 pb-10 pt-0">
 				<div className="mb-10 px-12 flex flex-col xl:flex-row gap-5">
-					<div className="xl:w-[33.333333%] xl:p-15 xl:shadow-md xl:rounded-xl">
+					<div className="xl:w-[33.333333%] xl:p-15 xl:shadow-md xl:rounded-xl xl:dark:shadow-white">
 						<p className="m-0 text-base sm:text-md md:text-xl lg:text-2xl">
 							Blog cards are compact visual summaries of blog posts, typically used on websites or
 							in app interfaces to showcase multiple articles in a grid or list format.
 						</p>
 					</div>
-					<div className="xl:w-[33.333333%] xl:p-15 xl:shadow-md xl:rounded-xl">
+					<div className="xl:w-[33.333333%] xl:p-15 xl:shadow-md xl:rounded-xl xl:dark:shadow-white">
 						<div className="flex flex-col items-center justify-center text-base sm:text-md md:text-xl lg:text-2xl">
 							<p className='mb-5'>Each card usually includes:</p>
 							<ul className="pl-5">
@@ -46,7 +46,7 @@ export default function BlogCardPage() {
 							</ul>
 						</div>
 					</div>
-					<div className="xl:w-[33.333333%] xl:p-15 xl:shadow-md xl:rounded-xl">
+					<div className="xl:w-[33.333333%] xl:p-15 xl:shadow-md xl:rounded-xl xl:dark:shadow-white">
 						<p className="m-0 text-base sm:text-md md:text-xl lg:text-2xl">
 							They help users quickly scan and choose which articles to read, and are a common UI
 							pattern in modern web design.

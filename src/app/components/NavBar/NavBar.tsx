@@ -48,8 +48,8 @@ export default function NavBar() {
 				</IconButton>
 			</div>
 			<div className="flex w-[50%] items-center justify-end pr-6 text-xl">
-				<Link href={'/'} style={{fontFamily: 'Rubik'}}>
-					UI Components
+				<Link href={'/'}>
+					UI Showcase
 				</Link>
 			</div>
 			<div

@@ -16,8 +16,8 @@ interface Props {
 }
 
 export default function BlogCard(props: Props) {
-	const {imgSrc, titleText, badgeData, height, width, bodyText} = props
-    console.log(height)
+	const {imgSrc, titleText, badgeData, width, bodyText} = props
+
 	return (
 		<div
 			style={{width}}
