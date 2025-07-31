@@ -61,8 +61,7 @@ export default function BlogCardPage() {
 								<BlogCard
 									imgSrc={imgSrc}
 									badgeData={[
-										{text: 'Lorem ipsum', type: 'brand'},
-										{text: 'Dolores', type: 'brand'}
+										{text: 'Lorem ipsum', type: 'brand'}
 									]}
 									width={300}
 									height={300}
