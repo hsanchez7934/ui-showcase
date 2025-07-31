@@ -1,0 +1,78 @@
+/* Base class */
+.badge {
+	border-radius: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.badge span {
+	height: auto;
+	width: auto;
+}
+
+/* Size classes */
+.badge_size_sm {
+	/* Define unique properties for size="sm". */
+	height: 30px;
+	width: auto;
+	font-size: 14px;
+	padding: 0 5px;
+}
+
+.badge_size_md {
+	/* Define unique properties for size="md". */
+	height: 35px;
+	width: auto;
+	font-size: 16px;
+	padding: 0 10px;
+}
+
+.badge_size_lg {
+	height: 40px;
+	width: auto;
+	font-size: 18px;
+	padding: 0 15px;
+}
+
+/* Color classes */
+.badge_color_neutral {
+	/* Define unique properties for color="neutral". */
+	background-color: #f9fafb;
+	color: #525252;
+	box-shadow: 0px 0px 1px 2px rgba(230, 230, 230, 0.5);
+	-webkit-box-shadow: 0px 0px 1px 2px rgba(230, 230, 230, 0.5);
+	-moz-box-shadow: 0px 0px 1px 2px rgba(230, 230, 230, 0.5);
+}
+.badge_color_danger {
+	/* Define unique properties for color="danger". */
+	background-color: #fecaca;
+	color: #dc2626;
+	box-shadow: 0px 0px 1px 2px rgba(220, 38, 38, 0.5);
+	-webkit-box-shadow: 0px 0px 1px 2px rgba(220, 38, 38, 0.5);
+	-moz-box-shadow: 0px 0px 1px 2px rgba(220, 38, 38, 0.5);
+}
+.badge_color_warning {
+	/* Define unique properties for color="warning". */
+	background-color: #fffbeb;
+	color: #b45309;
+	box-shadow: 0px 0px 1px 2px rgba(180, 83, 9, 0.5);
+	-webkit-box-shadow: 0px 0px 1px 2px rgba(180, 83, 9, 0.5);
+	-moz-box-shadow: 0px 0px 1px 2px rgba(180, 83, 9, 0.5);
+}
+.badge_color_success {
+	/* Define unique properties for color="success". */
+	background-color: #bbf7d0;
+	color: #15803d;
+	box-shadow: 0px 0px 1px 2px rgba(21, 168, 61, 0.5);
+	-webkit-box-shadow: 0px 0px 1px 2px rgba(21, 168, 61, 0.5);
+	-moz-box-shadow: 0px 0px 1px 2px rgba(21, 168, 61, 0.5);
+}
+.badge_color_brand {
+	/* Define unique properties for color="brand". */
+	background-color: #c7d2fe;
+	color: #4338ca;
+	box-shadow: 0px 0px 1px 2px rgba(67, 56, 202, 0.5);
+	-webkit-box-shadow: 0px 0px 1px 2px rgba(67, 56, 202, 0.5);
+	-moz-box-shadow: 0px 0px 1px 2px rgba(67, 56, 202, 0.5);
+}

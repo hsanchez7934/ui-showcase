@@ -1,0 +1,41 @@
+.toast {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.75rem 1rem;
+	border-radius: 0.75rem;
+	/* font-size: 0.95rem; */
+	font-family: sans-serif;
+	width: auto;
+	max-width: 100%;
+}
+
+.toast-badge {
+	padding: 0.25rem 0.75rem;
+	border-radius: 9999px;
+	background-color: white;
+	text-transform: capitalize;
+	font-weight: 600;
+	/* font-size: 0.85rem; */
+}
+
+/* === Toast Variants === */
+.toast-success {
+	background-color: #f0fdf4;
+	color: #15803d;
+}
+
+.toast-warning {
+	background-color: #fffbeb;
+	color: #b45309;
+}
+
+.toast-error {
+	background-color: #fef2f2;
+	color: #dc2626;
+}
+
+.toast-neutral {
+	background-color: #f9fafb;
+	color: #525252;
+}

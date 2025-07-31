@@ -1,0 +1,51 @@
+.textarea-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	font-family: sans-serif;
+}
+
+.textarea-label {
+	font-size: 0.95rem;
+	font-weight: 600;
+	text-align: left;
+}
+
+.custom-textarea {
+	resize: vertical;
+	min-height: 200px;
+	width: 300px;
+	font-size: 1rem;
+	padding: 0.75rem;
+	border-radius: 6px;
+	border: 1px solid #ccc;
+	transition:
+		box-shadow 0.2s ease,
+		border-color 0.2s ease;
+	font-family: inherit;
+}
+
+.custom-textarea:focus {
+	outline: none;
+}
+
+.textarea-footer {
+	display: flex;
+	justify-content: space-between;
+	font-size: 0.875rem;
+	margin-top: 4px;
+}
+
+.textarea-error {
+	color: #dc2626; /* red-600 */
+	text-align: left;
+}
+
+.textarea-count {
+	text-align: right;
+	color: #6b7280; /* gray-500 */
+}
+
+.textarea-count.over-limit {
+	color: #dc2626;
+}

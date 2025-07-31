@@ -1,0 +1,18 @@
+.paginationBtn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	padding: 8px;
+	border-radius: 6px;
+}
+
+.paginationBtn:hover {
+	box-shadow: 0px 0px 3px 4px rgba(230, 230, 230, 0.7);
+	-webkit-box-shadow: 0px 0px 3px 4px rgba(230, 230, 230, 0.7);
+	-moz-box-shadow: 0px 0px 3px 4px rgba(230, 230, 230, 0.7);
+}
+
+.paginationBtn:disabled:hover {
+	box-shadow: none;
+}
