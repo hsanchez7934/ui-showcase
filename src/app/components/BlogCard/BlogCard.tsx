@@ -11,7 +11,6 @@ interface Props {
 	titleText: string
 	badgeData: {text: string; type: string}[]
 	width: number
-	height: number
 	bodyText: string
 }
 
