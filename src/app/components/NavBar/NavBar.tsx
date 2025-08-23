@@ -9,6 +9,7 @@ import {useState} from 'react'
 
 const links = [
 	{href: '/blog-card', text: 'Blog Card'},
+	{href: '/testimonial-card', text: 'Testimonial Card'}
 ]
 
 const renderedLinks = (setToggleNavMenu: (value: boolean) => void) => {

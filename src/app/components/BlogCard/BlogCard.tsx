@@ -1,31 +1,29 @@
 'use-client'
 
-import {FaArrowRight} from 'react-icons/fa'
-import Badge from '@/app/components/badge/Badge'
 import './styles.css'
-import Image from 'next/image'
+import Badge from '@/app/components/badge/Badge'
 import Button from '@/app/components/button/Button'
+import {FaArrowRight} from 'react-icons/fa'
+import Image from 'next/image'
 
 interface Props {
 	imgSrc: string
 	titleText: string
 	badgeData: {text: string; type: string}[]
-	width: number
 	bodyText: string
 }
 
 export default function BlogCard(props: Props) {
-	const {imgSrc, titleText, badgeData, width, bodyText} = props
+	const {imgSrc, titleText, badgeData, bodyText} = props
 
 	return (
 		<div
-			style={{width}}
-			className="blogCardWrapper bg-white dark:bg-gray-800 shadow-xl"
+			className="blogCardWrapper w-[300px] sm:w-[350px] md:w-[400px] bg-white dark:bg-gray-800 shadow-xl"
 		>
 			<Image
 				src={imgSrc}
 				alt="Cocktail Explorer project screenshot"
-				width={width}
+				width={400}
 				height={300}
 				style={{borderRadius: '10px 10px 0px 0px'}}
 			/>
