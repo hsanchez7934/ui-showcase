@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import {useMemo} from 'react'
+import Button from './components/button/Button'
 
 interface FeaturedItem {
 	title: string
@@ -83,17 +84,12 @@ export default function HomePage() {
 							Tailwind, focused on reusability, accessibility, and clean, scalable code.
 						</p>
 						<div className="flex flex-wrap gap-3">
-							<Link
-								href="#featured"
-								className="inline-flex items-center rounded-xl bg-indigo-600 px-4 py-2 text-white shadow-sm transition hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
-							>
-								Explore Components
+							<Link href="#featured">
+								<Button buttonType='primary' buttonSize='medium' buttonText='Explore Components' />
 							</Link>
-							<Link
-								href="#about"
-								className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-slate-800 shadow-sm transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
-							>
-								About this Project
+
+							<Link href="#about">
+								<Button buttonType='secondary' buttonSize='medium' buttonText='About this Project' />
 							</Link>
 						</div>
 					</div>
@@ -218,13 +214,13 @@ export default function HomePage() {
 						© {new Date().getFullYear()} • UI Components Showcase
 					</p>
 					<div className="flex items-center gap-3 text-sm">
-						<Link href="/" className="rounded-md px-2 py-1 text-slate-700 dark:text-slate-400 hover:bg-slate-50">
+						<Link href="https://github.com/hsanchez7934" className="rounded-md px-2 py-1 text-slate-700 dark:text-slate-400 hover:bg-slate-50">
 							GitHub
 						</Link>
-						<Link href="/" className="rounded-md px-2 py-1 text-slate-700 dark:text-slate-400 hover:bg-slate-50">
+						<Link href="https://www.hectors.dev/" className="rounded-md px-2 py-1 text-slate-700 dark:text-slate-400 hover:bg-slate-50">
 							Portfolio
 						</Link>
-						<Link href="/" className="rounded-md px-2 py-1 text-slate-700 dark:text-slate-400 hover:bg-slate-50">
+						<Link href="https://www.linkedin.com/in/hector-a-sanchez/" className="rounded-md px-2 py-1 text-slate-700 dark:text-slate-400 hover:bg-slate-50">
 							LinkedIn
 						</Link>
 					</div>

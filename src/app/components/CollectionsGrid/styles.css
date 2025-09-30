@@ -1,0 +1,19 @@
+#collections-grid-main {
+	/* background-color: pink; */
+	height: 100vh;
+	width: 100%;
+	padding-top: 95px;
+}
+
+#mobile-collections-grid {
+	/* background-color: magenta; */
+}
+
+.backgroundFilterCollection {
+	background: linear-gradient(
+		to top,
+		rgba(0, 0, 0, 0.9) 0%,
+		rgba(10, 10, 10, 0.6) 50%,
+		rgba(20, 20, 20, 0.01) 100%
+	);
+}

@@ -9,7 +9,8 @@ import {useState} from 'react'
 
 const links = [
 	{href: '/blog-card', text: 'Blog Card'},
-	{href: '/testimonial-card', text: 'Testimonial Card'}
+	{href: '/testimonial-card', text: 'Testimonial Card'},
+	{href: 'collections-grid', text: 'Collections Grid'},
 ]
 
 const renderedLinks = (setToggleNavMenu: (value: boolean) => void) => {
