@@ -2,7 +2,13 @@ import './styles.css'
 import Image from 'next/image'
 
 interface Props {
-	collectionsData: any
+	collectionsData: {
+		collection_id: string
+		name: string
+		description: string
+		image_url: string
+		created_at: string
+	}[]
 }
 
 export default function CollectionsGrid(props: Props) {
