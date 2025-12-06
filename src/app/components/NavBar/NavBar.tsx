@@ -8,9 +8,10 @@ import Link from 'next/link'
 import {useState} from 'react'
 
 const links = [
+	{href: '/not-found', text: '404 Page'},
 	{href: '/blog-card', text: 'Blog Card'},
+	{href: '/collections-grid', text: 'Collections Grid'},
 	{href: '/testimonial-card', text: 'Testimonial Card'},
-	{href: 'collections-grid', text: 'Collections Grid'},
 ]
 
 const renderedLinks = (setToggleNavMenu: (value: boolean) => void) => {
