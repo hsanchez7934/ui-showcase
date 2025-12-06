@@ -11,7 +11,7 @@ const links = [
 	{href: '/not-found', text: '404 Page'},
 	{href: '/blog-card', text: 'Blog Card'},
 	{href: '/collections-grid', text: 'Collections Grid'},
-	{href: '/features-section', text: 'Features Section'},
+	{href: '/features-section-grid', text: 'Features (Grid)'},
 	{href: '/testimonial-card', text: 'Testimonial Card'},
 ]
 
@@ -20,12 +20,12 @@ const renderedLinks = (setToggleNavMenu: (value: boolean) => void) => {
 		return (
 			<div
 				key={link.text}
-				className="w-full h-[50px] flex items-center justify-star"
+				className="w-full h-[50px] flex items-center justify-start"
 				onClick={() => setToggleNavMenu(false)}
 			>
 				<Link
 					href={link.href}
-					className="h-full w-full text-2xl flex items-center pl-6 text-black dark:text-white hover:bg-gray-400"
+					className="h-full w-full text-2xl flex items-center border-amber-600 pl-6 text-black dark:text-white hover:bg-gray-400"
 				>
 					{link.text}
 				</Link>
