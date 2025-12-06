@@ -11,6 +11,7 @@ const links = [
 	{href: '/not-found', text: '404 Page'},
 	{href: '/blog-card', text: 'Blog Card'},
 	{href: '/collections-grid', text: 'Collections Grid'},
+	{href: '/features-section', text: 'Features Section'},
 	{href: '/testimonial-card', text: 'Testimonial Card'},
 ]
 
