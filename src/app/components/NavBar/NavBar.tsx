@@ -12,7 +12,8 @@ const links = [
 	{href: '/blog-card', text: 'Blog Card'},
 	{href: '/collections-grid', text: 'Collections Grid'},
 	{href: '/features-section-grid', text: 'Features (Grid)'},
-	{href: '/testimonial-card', text: 'Testimonial Card'},
+	{href: '/features-section-side', text: 'Features (Side)'},
+	{href: '/testimonial-card', text: 'Testimonial Card'}
 ]
 
 const renderedLinks = (setToggleNavMenu: (value: boolean) => void) => {
@@ -52,12 +53,12 @@ export default function NavBar() {
 				</IconButton>
 			</div>
 			<div className="flex w-[50%] items-center justify-end pr-6 text-xl">
-				<Link href={'/'}>
-					UI Showcase
-				</Link>
+				<Link href={'/'}>UI Showcase</Link>
 			</div>
 			<div
-				className={`h-screen w-full absolute flex top-0 left-0 ${toggleNavMenu ? 'showMenu' : 'hideMenu'}`}
+				className={`h-screen w-full absolute flex top-0 left-0 ${
+					toggleNavMenu ? 'showMenu' : 'hideMenu'
+				}`}
 			>
 				<nav className={`w-[250px] h-screen bg-white dark:bg-black `}>
 					<div className="w-full h-[65px] flex items-center justify-end pr-6">
