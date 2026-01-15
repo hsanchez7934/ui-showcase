@@ -13,6 +13,7 @@ const links = [
 	{href: '/collections-grid', text: 'Collections Grid'},
 	{href: '/features-section-grid', text: 'Features (Grid)'},
 	{href: '/features-section-side', text: 'Features (Side)'},
+	{href: '/hero-section-feature', text: 'Hero (Feature)'},
 	{href: '/testimonial-card', text: 'Testimonial Card'}
 ]
 
