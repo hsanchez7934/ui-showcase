@@ -9,12 +9,11 @@ import {useState} from 'react'
 
 const links = [
 	{href: '/not-found', text: '404 Page'},
-	{href: '/blog-card', text: 'Blog Card'},
 	{href: '/collections-grid', text: 'Collections Grid'},
 	{href: '/features-section-grid', text: 'Features (Grid)'},
 	{href: '/features-section-side', text: 'Features (Side)'},
 	{href: '/hero-section-feature', text: 'Hero (Feature)'},
-	{href: '/testimonial-card', text: 'Testimonial Card'}
+	{href: '/media-cards', text: 'Media Cards'}
 ]
 
 const renderedLinks = (setToggleNavMenu: (value: boolean) => void) => {
