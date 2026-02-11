@@ -13,7 +13,8 @@ const links = [
 	{href: '/features-section-grid', text: 'Features (Grid)'},
 	{href: '/features-section-side', text: 'Features (Side)'},
 	{href: '/hero-section-feature', text: 'Hero (Feature)'},
-	{href: '/media-cards', text: 'Media Cards'}
+	{href: '/media-cards', text: 'Media Cards'},
+	{href: '/teams-section', text: 'Teams Section'},
 ]
 
 const renderedLinks = (setToggleNavMenu: (value: boolean) => void) => {
@@ -44,12 +45,12 @@ export default function NavBar() {
 
 	return (
 		<header
-			className="min-h-20 flex bg-white w-full fixed items-center dark:bg-black navBarBoxShadow"
+			className="h-[56px] flex bg-white w-full fixed items-center dark:bg-black navBarBoxShadow"
 			style={{zIndex: 1000}}
 		>
 			<div className="h-full flex w-[50%]  items-center justify-start pl-6">
 				<IconButton onClick={handleMenuOnClick} sx={{p: 0}}>
-					<FaBars className="dark:text-white text-black text-3xl" />
+					<FaBars className="dark:text-white text-black text-2xl" />
 				</IconButton>
 			</div>
 			<div className="flex w-[50%] items-center justify-end pr-6 text-xl">
