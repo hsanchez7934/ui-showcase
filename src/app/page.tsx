@@ -67,7 +67,7 @@ export default function HomePage() {
 	)
 
 	return (
-		<main className="min-h-dvh bg-white dark:bg-black ">
+		<main className="min-h-dvh bg-white dark:bg-black">
 			{/* Hero */}
 			<section className="relative isolate overflow-hidden">
 				<div className="mx-auto max-w-6xl px-6 pt-20 pb-16 sm:pt-28 sm:pb-20">

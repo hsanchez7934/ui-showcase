@@ -14,6 +14,7 @@ const links = [
 	{href: '/features-section-side', text: 'Features (Side)'},
 	{href: '/hero-section-feature', text: 'Hero (Feature)'},
 	{href: '/media-cards', text: 'Media Cards'},
+	{href: '/pricing-section', text: 'Pricing Section'},
 	{href: '/teams-section', text: 'Teams Section'},
 ]
 
