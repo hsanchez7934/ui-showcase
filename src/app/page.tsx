@@ -112,7 +112,7 @@ export default function HomePage() {
 						<StaggerItem>
 							<p className="max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-400 sm:text-lg">
 								A living collection of production-ready views and components. Built with Next.js,
-								Tailwind, and Framer Motion, and TypeScript. Focused on reusability, accessibility, and clean,
+								Tailwind, Framer Motion, and TypeScript. Focused on reusability, accessibility, and clean,
 								scalable code.
 							</p>
 						</StaggerItem>
