@@ -13,7 +13,6 @@ interface Props {
 
 export default function CollectionsGrid(props: Props) {
 	const {collectionsData} = props
-	console.log(collectionsData)
 	return (
 		<div id="collections-grid-main">
 			<h1 className="px-5 my-4 font-bold text-black dark:text-white text-2xl">Our Collections</h1>

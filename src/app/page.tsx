@@ -13,32 +13,42 @@ interface FeaturedItem {
 
 interface CategoryItem {
 	name: string
-	items: string[]
+	items: {label: string; href: string}[]
 }
 
 export default function HomePage() {
 	const featured: FeaturedItem[] = useMemo(
 		() => [
 			{
-				title: 'Testimonial Card',
-				description: 'Compact social proof module with avatar, name, role, and quote.',
-				href: '/testimonial-card', // <-- adjust to your route
-				badge: 'New'
+				title: 'Media Cards',
+				description:
+					'Profile, testimonial, and blog card layouts for people, social proof, and content previews.',
+				href: '/media-cards'
 			},
 			{
-				title: 'Blog Card',
-				description: 'Image-forward article preview with badges, title and excerpt.',
-				href: '/blog-card' // <-- adjust to your route
+				title: 'Hero Section',
+				description: 'Split-layout hero with feature bullets, imagery, and primary/secondary CTAs.',
+				href: '/hero-section-feature'
 			},
 			{
-				title: 'Newsletter Section',
-				description: 'Email capture with validation and success toast.',
-				href: '/newsletter' // placeholder for future page
+				title: 'Collections Grid',
+				description: 'Responsive image-forward grid for showcasing product or content collections.',
+				href: '/collections-grid'
 			},
 			{
-				title: '404 View',
-				description: 'Friendly error state with primary CTA and shortcuts.',
-				href: '/404-demo' // placeholder
+				title: 'Pricing Section',
+				description: 'Two-column pricing layout with feature checklist and highlighted purchase card.',
+				href: '/pricing-section'
+			},
+			{
+				title: 'Features Grid',
+				description: 'Icon-driven feature grid for marketing pages and product benefit highlights.',
+				href: '/features-section-grid'
+			},
+			{
+				title: 'Teams Section',
+				description: 'Team member cards with photo, role, and bio in a responsive grid layout.',
+				href: '/teams-section'
 			}
 		],
 		[]
@@ -47,20 +57,28 @@ export default function HomePage() {
 	const categories: CategoryItem[] = useMemo(
 		() => [
 			{
-				name: 'Content',
-				items: ['Blog Cards', 'Testimonial Cards', 'About Page', 'FAQ']
+				name: 'Landing Sections',
+				items: [
+					{label: 'Hero (Feature)', href: '/hero-section-feature'},
+					{label: 'Features (Grid)', href: '/features-section-grid'},
+					{label: 'Features (Side)', href: '/features-section-side'},
+					{label: 'Pricing Section', href: '/pricing-section'}
+				]
 			},
 			{
-				name: 'Forms',
-				items: ['Newsletter', 'Login / Sign Up', 'Cookie Consent', 'Contact']
+				name: 'Cards & Media',
+				items: [
+					{label: 'Media Cards', href: '/media-cards'},
+					{label: 'Collections Grid', href: '/collections-grid'}
+				]
 			},
 			{
-				name: 'Commerce',
-				items: ['Product Details', 'Cart', 'Checkout', 'Order History']
+				name: 'People & Teams',
+				items: [{label: 'Teams Section', href: '/teams-section'}]
 			},
 			{
 				name: 'Utility',
-				items: ['404', 'Empty States', 'Pagination', 'Toasts']
+				items: [{label: '404 Page', href: '/not-found'}]
 			}
 		],
 		[]
@@ -108,7 +126,9 @@ export default function HomePage() {
 						<h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-200 sm:text-3xl">
 							Featured Components
 						</h2>
-						<p className="mt-1 text-slate-600 dark:text-slate-400">A rotating selection from the library.</p>
+						<p className="mt-1 text-slate-600 dark:text-slate-400">
+							Live demos from the component library.
+						</p>
 					</div>
 					<Link
 						href="#categories"
@@ -166,11 +186,14 @@ export default function HomePage() {
 						>
 							<h3 className="mb-2 text-lg font-semibold text-slate-900 dark:text-slate-200">{cat.name}</h3>
 							<ul className="flex flex-wrap gap-2">
-								{cat.items.map((i) => (
-									<li key={i}>
-										<span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-slate-700">
-											{i}
-										</span>
+								{cat.items.map((item) => (
+									<li key={item.href}>
+										<Link
+											href={item.href}
+											className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-slate-700 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700"
+										>
+											{item.label}
+										</Link>
 									</li>
 								))}
 							</ul>
