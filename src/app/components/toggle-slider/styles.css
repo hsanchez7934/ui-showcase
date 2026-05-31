@@ -35,15 +35,5 @@
 	background-color: white;
 	border-radius: 50%;
 	position: absolute;
-	transition: left 0.25s ease;
-	left: 2px;
 	top: 2px;
-}
-
-.toggle-knob.on {
-	left: 24px;
-}
-
-.toggle-knob.off {
-	left: 2px;
 }

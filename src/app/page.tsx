@@ -1,8 +1,14 @@
 'use client'
 
+import {motion, useReducedMotion} from 'framer-motion'
 import Link from 'next/link'
 import {useMemo} from 'react'
 import Button from './components/button/Button'
+import FadeInSection from './components/motion/FadeInSection'
+import HeroGradient from './components/motion/HeroGradient'
+import StaggerContainer from './components/motion/StaggerContainer'
+import StaggerItem from './components/motion/StaggerItem'
+import {spring} from './components/motion/motionConfig'
 
 interface FeaturedItem {
 	title: string
@@ -17,6 +23,7 @@ interface CategoryItem {
 }
 
 export default function HomePage() {
+	const reducedMotion = useReducedMotion()
 	const featured: FeaturedItem[] = useMemo(
 		() => [
 			{
@@ -37,7 +44,8 @@ export default function HomePage() {
 			},
 			{
 				title: 'Pricing Section',
-				description: 'Two-column pricing layout with feature checklist and highlighted purchase card.',
+				description:
+					'Two-column pricing layout with feature checklist and highlighted purchase card.',
 				href: '/pricing-section'
 			},
 			{
@@ -89,39 +97,53 @@ export default function HomePage() {
 			{/* Hero */}
 			<section className="relative isolate overflow-hidden">
 				<div className="mx-auto max-w-6xl px-6 pt-20 pb-16 sm:pt-28 sm:pb-20">
-					<div className="flex flex-col items-start gap-6">
-						<span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600">
-							<span className="h-2 w-2 rounded-full bg-indigo-500" />
-							UI Components Showcase
-						</span>
-						<h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-200 sm:text-6xl">
-							Robust, beautiful, modern UI for the real world
-						</h1>
-						<p className="max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-400 sm:text-lg">
-							A living collection of production-ready views and components. Built with Next.js and
-							Tailwind, focused on reusability, accessibility, and clean, scalable code.
-						</p>
-						<div className="flex flex-wrap gap-3">
-							<Link href="#featured">
-								<Button buttonType='primary' buttonSize='medium' buttonText='Explore Components' />
-							</Link>
+					<StaggerContainer trigger="mount" className="flex flex-col items-start gap-6">
+						<StaggerItem>
+							<span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600">
+								<span className="h-2 w-2 rounded-full bg-indigo-500" />
+								UI Components Showcase
+							</span>
+						</StaggerItem>
+						<StaggerItem>
+							<h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-200 sm:text-6xl">
+								Robust, beautiful, modern UI for the real world
+							</h1>
+						</StaggerItem>
+						<StaggerItem>
+							<p className="max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-400 sm:text-lg">
+								A living collection of production-ready views and components. Built with Next.js,
+								Tailwind, and Framer Motion, and TypeScript. Focused on reusability, accessibility, and clean,
+								scalable code.
+							</p>
+						</StaggerItem>
+						<StaggerItem>
+							<div className="flex flex-wrap gap-3">
+								<Link href="#featured">
+									<Button
+										buttonType="primary"
+										buttonSize="medium"
+										buttonText="Explore Components"
+									/>
+								</Link>
 
-							<Link href="#about">
-								<Button buttonType='secondary' buttonSize='medium' buttonText='About this Project' />
-							</Link>
-						</div>
-					</div>
+								<Link href="#about">
+									<Button
+										buttonType="secondary"
+										buttonSize="medium"
+										buttonText="About this Project"
+									/>
+								</Link>
+							</div>
+						</StaggerItem>
+					</StaggerContainer>
 				</div>
 
-				{/* Decorative gradient */}
-				<div aria-hidden className="pointer-events-none absolute inset-x-0 -top-24 -z-10 blur-3xl">
-					<div className="mx-auto h-64 w-[60rem] rounded-full bg-gradient-to-r from-indigo-200 via-fuchsia-200 to-sky-200 opacity-60" />
-				</div>
+				<HeroGradient />
 			</section>
 
 			{/* Featured */}
 			<section id="featured" className="mx-auto max-w-6xl px-6 py-10 sm:py-14">
-				<div className="mb-6 flex items-end justify-between">
+				<FadeInSection className="mb-6 flex items-end justify-between">
 					<div>
 						<h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-200 sm:text-3xl">
 							Featured Components
@@ -136,55 +158,68 @@ export default function HomePage() {
 					>
 						Browse by category
 					</Link>
-				</div>
+				</FadeInSection>
 
-				<ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				<StaggerContainer className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 					{featured.map((item) => (
-						<li key={item.title}>
-							<Link
-								href={item.href}
-								className="group block rounded-2xl border border-slate-200 p-5 shadow-sm transition hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+						<StaggerItem key={item.title}>
+							<motion.div
+								whileHover={reducedMotion ? undefined : {y: -4}}
+								transition={reducedMotion ? undefined : spring}
 							>
-								<div className="mb-3 flex items-center gap-2">
-									<h3 className="text-lg font-semibold text-slate-900 dark:text-slate-200">{item.title}</h3>
-									{item.badge ? (
-										<span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-200">
-											{item.badge}
-										</span>
-									) : null}
-								</div>
-								<p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">{item.description}</p>
-								<div className="mt-4 inline-flex items-center text-sm font-medium text-indigo-600">
-									<span className="mr-1 transition group-hover:translate-x-0.5">View demo</span>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 20 20"
-										fill="currentColor"
-										className="size-4"
-									>
-										<path
-											fillRule="evenodd"
-											d="M3 10a.75.75 0 0 1 .75-.75h9.19L9.22 5.53a.75.75 0 1 1 1.06-1.06l5.5 5.5a.75.75 0 0 1 0 1.06l-5.5 5.5a.75.75 0 1 1-1.06-1.06l3.72-3.72H3.75A.75.75 0 0 1 3 10Z"
-											clipRule="evenodd"
-										/>
-									</svg>
-								</div>
-							</Link>
-						</li>
+								<Link
+									href={item.href}
+									className="group block rounded-2xl border border-slate-200 p-5 shadow-sm transition hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+								>
+									<div className="mb-3 flex items-center gap-2">
+										<h3 className="text-lg font-semibold text-slate-900 dark:text-slate-200">
+											{item.title}
+										</h3>
+										{item.badge ? (
+											<span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-200">
+												{item.badge}
+											</span>
+										) : null}
+									</div>
+									<p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+										{item.description}
+									</p>
+									<div className="mt-4 inline-flex items-center text-sm font-medium text-indigo-600">
+										<span className="mr-1 transition group-hover:translate-x-0.5">View demo</span>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+											className="size-4"
+										>
+											<path
+												fillRule="evenodd"
+												d="M3 10a.75.75 0 0 1 .75-.75h9.19L9.22 5.53a.75.75 0 1 1 1.06-1.06l5.5 5.5a.75.75 0 0 1 0 1.06l-5.5 5.5a.75.75 0 1 1-1.06-1.06l3.72-3.72H3.75A.75.75 0 0 1 3 10Z"
+												clipRule="evenodd"
+											/>
+										</svg>
+									</div>
+								</Link>
+							</motion.div>
+						</StaggerItem>
 					))}
-				</ul>
+				</StaggerContainer>
 			</section>
 
 			{/* Categories */}
 			<section id="categories" className="mx-auto max-w-6xl px-6 py-10 sm:py-14">
-				<h2 className="mb-4 text-2xl font-semibold text-slate-900 dark:text-slate-200 sm:text-3xl">Categories</h2>
+				<h2 className="mb-4 text-2xl font-semibold text-slate-900 dark:text-slate-200 sm:text-3xl">
+					Categories
+				</h2>
 				<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
 					{categories.map((cat) => (
 						<div
 							key={cat.name}
 							className="rounded-2xl border border-slate-200 p-5 shadow-sm transition hover:shadow-md"
 						>
-							<h3 className="mb-2 text-lg font-semibold text-slate-900 dark:text-slate-200">{cat.name}</h3>
+							<h3 className="mb-2 text-lg font-semibold text-slate-900 dark:text-slate-200">
+								{cat.name}
+							</h3>
 							<ul className="flex flex-wrap gap-2">
 								{cat.items.map((item) => (
 									<li key={item.href}>
@@ -237,13 +272,22 @@ export default function HomePage() {
 						© {new Date().getFullYear()} • UI Components Showcase
 					</p>
 					<div className="flex items-center gap-3 text-sm">
-						<Link href="https://github.com/hsanchez7934" className="rounded-md px-2 py-1 text-slate-700 dark:text-slate-400 hover:bg-slate-50">
+						<Link
+							href="https://github.com/hsanchez7934"
+							className="rounded-md px-2 py-1 text-slate-700 dark:text-slate-400 hover:bg-slate-50"
+						>
 							GitHub
 						</Link>
-						<Link href="https://www.hectors.dev/" className="rounded-md px-2 py-1 text-slate-700 dark:text-slate-400 hover:bg-slate-50">
+						<Link
+							href="https://www.hectors.dev/"
+							className="rounded-md px-2 py-1 text-slate-700 dark:text-slate-400 hover:bg-slate-50"
+						>
 							Portfolio
 						</Link>
-						<Link href="https://www.linkedin.com/in/hector-a-sanchez/" className="rounded-md px-2 py-1 text-slate-700 dark:text-slate-400 hover:bg-slate-50">
+						<Link
+							href="https://www.linkedin.com/in/hector-a-sanchez/"
+							className="rounded-md px-2 py-1 text-slate-700 dark:text-slate-400 hover:bg-slate-50"
+						>
 							LinkedIn
 						</Link>
 					</div>

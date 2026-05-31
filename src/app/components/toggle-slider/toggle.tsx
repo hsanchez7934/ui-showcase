@@ -1,7 +1,9 @@
 'use client'
 
 import React from 'react'
+import {motion, useReducedMotion} from 'framer-motion'
 import './styles.css'
+import {spring} from '../motion/motionConfig'
 
 interface ToggleSwitchProps {
 	isOn: boolean
@@ -24,18 +26,34 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
 	activeColor = '#4f46e5',
 	inactiveColor = '#ccc'
 }) => {
+	const reducedMotion = useReducedMotion()
+
 	return (
 		<div className="toggle-wrapper">
 			{labelText && labelPosition === 'left' && <span className="toggle-label">{labelText}</span>}
 			{icon && iconPosition === 'left' && <span className="toggle-icon">{icon}</span>}
 
-			<div
+			<motion.div
 				className="toggle-switch"
 				onClick={onToggle}
-				style={{backgroundColor: isOn ? activeColor : inactiveColor}}
+				animate={{backgroundColor: isOn ? activeColor : inactiveColor}}
+				transition={reducedMotion ? {duration: 0} : {duration: 0.2}}
+				role="switch"
+				aria-checked={isOn}
+				tabIndex={0}
+				onKeyDown={(event) => {
+					if (event.key === 'Enter' || event.key === ' ') {
+						event.preventDefault()
+						onToggle()
+					}
+				}}
 			>
-				<div className={`toggle-knob ${isOn ? 'on' : 'off'}`} />
-			</div>
+				<motion.div
+					className="toggle-knob"
+					animate={{left: isOn ? 24 : 2}}
+					transition={reducedMotion ? {duration: 0} : spring}
+				/>
+			</motion.div>
 
 			{icon && iconPosition === 'right' && <span className="toggle-icon">{icon}</span>}
 			{labelText && labelPosition === 'right' && <span className="toggle-label">{labelText}</span>}

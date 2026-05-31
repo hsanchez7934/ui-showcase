@@ -1,11 +1,13 @@
 'use client'
 
 import './styles.css'
+import {AnimatePresence, motion, useReducedMotion} from 'framer-motion'
 import {ReactNode, useEffect} from 'react'
 import {FaAngleDown} from 'react-icons/fa6'
 import {IoIosCheckmarkCircle} from 'react-icons/io'
 import React from 'react'
 import clsx from 'clsx'
+import {instantTransition, tween} from '../motion/motionConfig'
 
 interface Props {
 	width: number
@@ -30,6 +32,8 @@ export default function DropDown(props: Props) {
 	const [focusState, setFocusState] = React.useState<boolean>(false)
 	const [disabledState, setDisabledState] = React.useState<boolean>(false)
 	const [selectedValue, setSelectedValue] = React.useState<string>(props?.data?.[0]?.value || '')
+	const reducedMotion = useReducedMotion()
+	const menuTransition = reducedMotion ? instantTransition : tween
 
 	useEffect(() => {
 		if (props?.isDisabled) {
@@ -196,12 +200,21 @@ export default function DropDown(props: Props) {
 				{selectedValue || 'Click to select an option...'}
 			</span>
 			{getIconRight()}
-			<div
-				className={`dropdownMenuList ${focusState ? 'block' : 'hidden'} absolute w-full h-auto max-h-96 dropdown`}
-				style={{top: `${height + 10}px`, left: 0, zIndex: 1000, overflow: 'auto'}}
-			>
-				{renderedOptions()}
-			</div>
+			<AnimatePresence>
+				{focusState ? (
+					<motion.div
+						key="dropdown-menu"
+						className="dropdownMenuList absolute w-full h-auto max-h-96 dropdown"
+						style={{top: `${height + 10}px`, left: 0, zIndex: 1000, overflow: 'auto', transformOrigin: 'top center'}}
+						initial={{opacity: 0, scaleY: 0.85}}
+						animate={{opacity: 1, scaleY: 1}}
+						exit={{opacity: 0, scaleY: 0.85}}
+						transition={menuTransition}
+					>
+						{renderedOptions()}
+					</motion.div>
+				) : null}
+			</AnimatePresence>
 		</div>
 	)
 }

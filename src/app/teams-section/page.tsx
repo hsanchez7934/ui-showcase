@@ -1,7 +1,11 @@
 'use client'
 
-import {desc} from 'framer-motion/client'
+import {motion, useReducedMotion} from 'framer-motion'
 import Image from 'next/image'
+import PageHeader from '../components/motion/PageHeader'
+import StaggerContainer from '../components/motion/StaggerContainer'
+import StaggerItem from '../components/motion/StaggerItem'
+import {spring} from '../components/motion/motionConfig'
 
 const teams = [
 	{
@@ -31,38 +35,44 @@ const teams = [
 ]
 
 export default function TeamsSection() {
+	const reducedMotion = useReducedMotion()
+
 	return (
 		<div className="h-dvh pt-[100px] px-6 pb-[100px]">
-			<div className='h-full max-w-7xl mx-auto flex flex-col items-center justify-start'>
-				<p className="text-base text-indigo-500 text-center mb-4">Team</p>
-				<h1 className="font-bold text-3xl text-center text-zinc-800 dark:text-white mb-6">
-					Meet our team
-				</h1>
-				<p className="text-lg text-zinc-600 dark:text-white text-center mb-6">
-					From skilled designers to tech-savvy devlopers, our team is a powerhouse of creativity and
-					expertise. We are passionate about crafting exceptional digital experiences that captivate
-					and inspire. With a blend of innovation and dedication, we bring your ideas to life,
-					ensuring every project is a masterpiece of design and functionality.
-				</p>
+			<div className="h-full max-w-7xl mx-auto flex flex-col items-center justify-start">
+				<PageHeader
+					eyebrow="Team"
+					title="Meet our team"
+					description="From skilled designers to tech-savvy devlopers, our team is a powerhouse of creativity and expertise. We are passionate about crafting exceptional digital experiences that captivate and inspire. With a blend of innovation and dedication, we bring your ideas to life, ensuring every project is a masterpiece of design and functionality."
+					eyebrowClassName="text-base text-indigo-500 text-center mb-4"
+					titleClassName="font-bold text-3xl text-center text-zinc-800 dark:text-white mb-6"
+					descriptionClassName="text-lg text-zinc-600 dark:text-white text-center mb-6"
+				/>
 
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-7">
+				<StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-7 w-full">
 					{teams.map((team, index) => (
-						<div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
-							<div>
-								<Image
-									src={team.image}
-									alt={team.name}
-									width={300}
-									height={300}
-									className="w-full h-full object-cover rounded-t-lg"
-								/>
-							</div>
-							<h2 className="text-xl font-bold text-zinc-800 dark:text-white mt-4">{team.name}</h2>
-							<p className="text-gray-600 dark:text-gray-300">{team.role}</p>
-							<p className="text-gray-700 dark:text-gray-400 mt-2">{team.desc}</p>
-						</div>
+						<StaggerItem key={index}>
+							<motion.div
+								whileHover={reducedMotion ? undefined : {y: -6}}
+								transition={reducedMotion ? undefined : spring}
+								className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 h-full"
+							>
+								<div className="overflow-hidden rounded-t-lg">
+									<Image
+										src={team.image}
+										alt={team.name}
+										width={300}
+										height={300}
+										className="w-full h-full object-cover"
+									/>
+								</div>
+								<h2 className="text-xl font-bold text-zinc-800 dark:text-white mt-4">{team.name}</h2>
+								<p className="text-gray-600 dark:text-gray-300">{team.role}</p>
+								<p className="text-gray-700 dark:text-gray-400 mt-2">{team.desc}</p>
+							</motion.div>
+						</StaggerItem>
 					))}
-				</div>
+				</StaggerContainer>
 			</div>
 		</div>
 	)

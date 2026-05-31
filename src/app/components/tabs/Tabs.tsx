@@ -1,5 +1,11 @@
+'use client'
+
 import './styles.css'
+import {AnimatePresence, motion, useReducedMotion} from 'framer-motion'
 import React, {useState} from 'react'
+import {instantTransition, springDrawer, tween} from '../motion/motionConfig'
+
+const tabUnderlineTransition = springDrawer
 
 export interface TabItem {
 	label: string
@@ -13,6 +19,8 @@ interface TabsProps {
 
 export const Tabs: React.FC<TabsProps> = ({tabs, initialIndex = 0}) => {
 	const [activeIndex, setActiveIndex] = useState(initialIndex)
+	const reducedMotion = useReducedMotion()
+	const contentTransition = reducedMotion ? instantTransition : {...tween, duration: 0.25}
 
 	return (
 		<div className="w-[300px] h-[300px] sm:w-[350px] sm:h-[310px] md:w-[400px] md:h-[320px] lg:w-[450px] lg:h-[360px] xl:w-[500px] xl:h-[380px] 2xl:h-[420px]">
@@ -24,11 +32,31 @@ export const Tabs: React.FC<TabsProps> = ({tabs, initialIndex = 0}) => {
 						onClick={() => setActiveIndex(index)}
 					>
 						{tab.label}
+						{activeIndex === index && !reducedMotion ? (
+							<motion.span
+								layoutId="tab-underline"
+								className="tab-underline"
+								transition={tabUnderlineTransition}
+							/>
+						) : null}
+						{activeIndex === index && reducedMotion ? (
+							<span className="tab-underline" />
+						) : null}
 					</button>
 				))}
 			</div>
 			<div className="tab-content text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">
-				{tabs[activeIndex].content}
+				<AnimatePresence mode="wait">
+					<motion.div
+						key={activeIndex}
+						initial={{opacity: 0, y: 8}}
+						animate={{opacity: 1, y: 0}}
+						exit={{opacity: 0, y: -8}}
+						transition={contentTransition}
+					>
+						{tabs[activeIndex].content}
+					</motion.div>
+				</AnimatePresence>
 			</div>
 		</div>
 	)
