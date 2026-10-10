@@ -1,13 +1,24 @@
+.tabs {
+	width: 100%;
+	max-width: 32rem;
+}
+
 .tab-headings {
 	display: flex;
+	flex-wrap: wrap;
 	border-bottom: 1px solid #e5e7eb;
 	margin-bottom: 1rem;
 }
 
 .tab-heading {
+	flex: 1 1 auto;
 	border: none;
 	cursor: pointer;
 	position: relative;
+	padding: 10px 16px;
+	font-size: 16px;
+	line-height: 1.25;
+	white-space: nowrap;
 	transition:
 		color 0.2s ease,
 		box-shadow 0.2s ease;
@@ -34,4 +45,26 @@
 
 .tab-content {
 	padding: 1rem 0;
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+	.tab-heading.active {
+		color: #e0e7ff;
+		background-color: rgba(129, 140, 248, 0.18);
+	}
+
+	.tab-heading.active:hover {
+		color: #eef2ff;
+		background-color: rgba(129, 140, 248, 0.28);
+	}
+
+	.tab-heading:hover {
+		color: #c7d2fe;
+	}
+
+	.tab-underline {
+		background: #a5b4fc;
+	}
 }

@@ -50,20 +50,18 @@ const Checkbox = (props: Props) => {
 	}
 
 	return (
-		<div
-			className="flex items-center justify-center gap-3 mb-8"
-			style={{fontFamily: 'Rubik'}}
-		>
+		<div className="flex items-center justify-center gap-3 mb-8">
 			<input
 				type="checkbox"
+				id={`${inputRef.current?.id}`}
 				ref={inputRef}
 				checked={checked}
 				onChange={handleOnChange}
-				className={`custom-checkbox ${isIndeterminate ? 'indeterminate' : ''} w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 cursor-pointer`}
+				className={`custom-checkbox ${isIndeterminate ? 'indeterminate' : ''}`}
 			/>
-			<span className="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl w-28">
+			<label htmlFor={inputRef.current?.id} className="text-base">
 				{checkboxText}
-			</span>
+			</label>
 		</div>
 	)
 }

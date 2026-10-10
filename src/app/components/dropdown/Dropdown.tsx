@@ -2,10 +2,9 @@
 
 import './styles.css'
 import {AnimatePresence, motion, useReducedMotion} from 'framer-motion'
-import {ReactNode, useEffect} from 'react'
+import {MouseEvent, ReactNode, useEffect, useRef, useState} from 'react'
 import {FaAngleDown} from 'react-icons/fa6'
 import {IoIosCheckmarkCircle} from 'react-icons/io'
-import React from 'react'
 import clsx from 'clsx'
 import {instantTransition, tween} from '../motion/motionConfig'
 
@@ -27,71 +26,59 @@ interface Props {
 	isDisabled?: boolean
 }
 
+const arrowTransition = {duration: 0.2, ease: 'easeOut' as const}
+
 export default function DropDown(props: Props) {
 	const {width, height} = props
-	const [focusState, setFocusState] = React.useState<boolean>(false)
-	const [disabledState, setDisabledState] = React.useState<boolean>(false)
-	const [selectedValue, setSelectedValue] = React.useState<string>(props?.data?.[0]?.value || '')
+	const rootRef = useRef<HTMLDivElement>(null)
+	const [open, setOpen] = useState(false)
+	const [selectedValue, setSelectedValue] = useState<string>(props?.data?.[0]?.value || '')
 	const reducedMotion = useReducedMotion()
 	const menuTransition = reducedMotion ? instantTransition : tween
+	const disabled = Boolean(props.isDisabled)
 
 	useEffect(() => {
-		if (props?.isDisabled) {
-			setDisabledState(true)
+		if (!open) {
+			return
 		}
-		window.onclick = (event: MouseEvent) => {
-			// @ts-expect-error generic
-			if (!event.target?.matches('.clickable')) {
-				if (focusState) {
-					setFocusState(false)
-				}
-				const matches = document.querySelectorAll('.dropdownMenuList')
-				matches.forEach((match) => {
-					match.classList.remove('block')
-					match.classList.add('hidden')
-				})
-				const containers = document.querySelectorAll('.dropDownMenuComponent')
-				containers.forEach((container) => {
-					container.classList.remove('focusState')
-				})
+
+		const handlePointerDown = (event: PointerEvent) => {
+			const target = event.target
+			if (target instanceof Node && rootRef.current?.contains(target)) {
+				return
 			}
+			setOpen(false)
 		}
-		return () => {
-			window.onclick = null
+
+		document.addEventListener('pointerdown', handlePointerDown)
+		return () => document.removeEventListener('pointerdown', handlePointerDown)
+	}, [open])
+
+	useEffect(() => {
+		if (disabled) {
+			setOpen(false)
 		}
-	}, [props?.isDisabled, focusState])
-
-	const getLeftPadding = () => {
-		return `${props?.iconLeft ? 'pl-[40px] lg:pl-[50px] xl:pl-[60px] 2xl:pl-[70px]' : 'pl-[15px]'}`
-	}
-
-	const getRightPadding = () => {
-		return `${props?.iconRight ? 'pr-[40px] lg:pr-[50px] xl:pr-[60px] 2xl:pr-[70px]' : 'pr-[15px]'}`
-	}
+	}, [disabled])
 
 	const getIconLeft = () => {
-		let markup = <></>
-
-		if (props?.iconLeft) {
-			markup = (
-				<div
-					style={{
-						position: 'absolute',
-						left: '0px',
-						top: '0px',
-						height: '100%',
-						color: `${props?.iconColor || '#525252'}`
-					}}
-					className="clickable w-10 lg:w-12 xl:w-14 2xl:w-16"
-				>
-					<div className="clickable flex items-center justify-center h-full w-full text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
-						{props.iconLeft}
-					</div>
-				</div>
-			)
+		if (!props?.iconLeft) {
+			return null
 		}
 
-		return markup
+		return (
+			<div
+				style={{
+					position: 'absolute',
+					left: '0px',
+					top: '0px',
+					height: '100%',
+					color: `${props?.iconColor || '#525252'}`
+				}}
+				className="w-9"
+			>
+				<div className="flex items-center justify-center h-full w-full text-base">{props.iconLeft}</div>
+			</div>
+		)
 	}
 
 	const getIconRight = () => {
@@ -104,18 +91,27 @@ export default function DropDown(props: Props) {
 					height: '100%',
 					color: `${props?.iconColor || '#525252'}`
 				}}
-				className="clickable w-10 lg:w-12 xl:w-14 2xl:w-16"
+				className="w-9"
 			>
-				<div className="clickable flex items-center justify-center h-full w-full text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
-					{props.iconRight || <FaAngleDown className="clickable" />}
+				<div className="flex items-center justify-center h-full w-full">
+					{props.iconRight || (
+						<motion.span
+							className="inline-flex"
+							animate={{rotate: open ? 180 : 0}}
+							transition={reducedMotion ? instantTransition : arrowTransition}
+						>
+							<FaAngleDown className="size-4" aria-hidden />
+						</motion.span>
+					)}
 				</div>
 			</div>
 		)
 	}
 
-	const handleOptionOnClick = (event: React.MouseEvent<HTMLLIElement>, value: string) => {
+	const handleOptionOnClick = (event: MouseEvent<HTMLLIElement>, value: string) => {
+		event.stopPropagation()
 		setSelectedValue(value)
-		setFocusState(false)
+		setOpen(false)
 	}
 
 	const renderedOptions = () => {
@@ -154,29 +150,30 @@ export default function DropDown(props: Props) {
 				</li>
 			)
 		})
-		return <ul className={`p-2 rounded-md ${clsx(props.bgColor ? props.bgColor : '')}`}>{items}</ul>
+		return (
+			<ul
+				className={`p-2 rounded-md border border-slate-300 dark:border-slate-600 ${clsx(props.bgColor ? props.bgColor : '')}`}
+			>
+				{items}
+			</ul>
+		)
 	}
 
-	const handleMenuOnClick = () => {
-		if (disabledState) {
+	const handleMenuOnClick = (event: MouseEvent<HTMLDivElement>) => {
+		if (disabled) {
 			return
 		}
-		const matches = document.querySelectorAll('.dropdownMenuList')
-		matches.forEach((match) => {
-			match.classList.remove('block')
-			match.classList.add('hidden')
-		})
-		const containers = document.querySelectorAll('.dropDownMenuComponent')
-		containers.forEach((container) => {
-			container.classList.remove('focusState')
-		})
-		setFocusState(!focusState)
+		if (event.target instanceof Element && event.target.closest('.dropdownMenuList')) {
+			return
+		}
+		setOpen((current) => !current)
 	}
 
 	return (
 		<div
-			onClick={() => handleMenuOnClick()}
-			className={`clickable relative ${getLeftPadding()} ${getRightPadding()} rounded-md flex items-center dropDownMenuComponent ${clsx(
+			ref={rootRef}
+			onClick={handleMenuOnClick}
+			className={`relative ${props.iconLeft ? 'pl-10' : 'pl-3'} pr-10 rounded-md flex items-center dropDownMenuComponent ${clsx(
 				props.classes,
 				props.bgColor ? props.bgColor : '',
 				props.bgColorHover ? props.bgColorHover : '',
@@ -185,23 +182,20 @@ export default function DropDown(props: Props) {
 				props.textColorHoverLightMode ? props.textColorHoverLightMode : 'hover:text-black',
 				props.textColorHoverDarkMode ? props.textColorHoverDarkMode : 'dark:hover:text-white',
 				[
-					`${disabledState ? 'cursor-not-allowed' : 'cursor-pointer'}`,
-					`${disabledState && 'opacity-70 dropdownDisabledState'}`,
-					`${focusState && !disabledState ? 'focusState' : ''}`
+					`${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}`,
+					`${disabled && 'opacity-70 dropdownDisabledState'}`,
+					`${open && !disabled ? 'focusState' : ''}`
 				]
 			)}`}
-			style={{height: `${height || 35}px`, width: `${width || 200}px`}}
+			style={{height: `${height || 40}px`, width: `${width || 220}px`, maxWidth: '100%'}}
 		>
 			{getIconLeft()}
-			<span
-				className="clickable truncate w-full pr-5"
-				title={selectedValue || 'Click to select an option...'}
-			>
+			<span className="truncate w-full" title={selectedValue || 'Click to select an option...'}>
 				{selectedValue || 'Click to select an option...'}
 			</span>
 			{getIconRight()}
 			<AnimatePresence>
-				{focusState ? (
+				{open ? (
 					<motion.div
 						key="dropdown-menu"
 						className="dropdownMenuList absolute w-full h-auto max-h-96 dropdown"

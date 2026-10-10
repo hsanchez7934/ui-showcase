@@ -1,3 +1,5 @@
+'use client'
+
 import React, {useEffect, useRef, useState} from 'react'
 import './styles.css'
 
@@ -44,7 +46,7 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({parentLabel, options}) => 
 
 	return (
 		<div>
-			<label className='block pb-3 w-full text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl'>
+			<label className="block pb-3 w-full text-base">
 				<input
 					type="checkbox"
 					className={`custom-checkbox ${parentIndeterminate ? 'indeterminate' : ''}`}
@@ -58,7 +60,7 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({parentLabel, options}) => 
 			<ul className='pl-8'>
 				{options.map((opt) => (
 					<li key={opt.value} className='mb-3'>
-						<label className='text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl w-28'>
+						<label className="text-base">
 							<input
 								type="checkbox"
 								className="custom-checkbox"

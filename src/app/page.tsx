@@ -19,6 +19,7 @@ interface FeaturedItem {
 
 interface CategoryItem {
 	name: string
+	wide?: boolean
 	items: {label: string; href: string}[]
 }
 
@@ -26,6 +27,13 @@ export default function HomePage() {
 	const reducedMotion = useReducedMotion()
 	const featured: FeaturedItem[] = useMemo(
 		() => [
+			{
+				title: 'Component Playground',
+				description:
+					'Try buttons, form controls, and feedback components with live options for type, state, and content.',
+				href: '/playground',
+				badge: 'New'
+			},
 			{
 				title: 'Media Cards',
 				description:
@@ -64,6 +72,23 @@ export default function HomePage() {
 
 	const categories: CategoryItem[] = useMemo(
 		() => [
+			{
+				name: 'Components',
+				wide: true,
+				items: [
+					{label: 'Button', href: '/playground?component=button'},
+					{label: 'Badge', href: '/playground?component=badge'},
+					{label: 'Checkbox', href: '/playground?component=checkbox'},
+					{label: 'Dropdown', href: '/playground?component=dropdown'},
+					{label: 'Pagination', href: '/playground?component=pagination'},
+					{label: 'Radio Cards', href: '/playground?component=radio-cards'},
+					{label: 'Tabs', href: '/playground?component=tabs'},
+					{label: 'Text Input', href: '/playground?component=text-input'},
+					{label: 'Textarea', href: '/playground?component=textarea'},
+					{label: 'Toast', href: '/playground?component=toast'},
+					{label: 'Tooltip', href: '/playground?component=tooltip'}
+				]
+			},
 			{
 				name: 'Landing Sections',
 				items: [
@@ -215,7 +240,9 @@ export default function HomePage() {
 					{categories.map((cat) => (
 						<div
 							key={cat.name}
-							className="rounded-2xl border border-slate-200 p-5 shadow-sm transition hover:shadow-md"
+							className={`rounded-2xl border border-slate-200 p-5 shadow-sm transition hover:shadow-md ${
+								cat.wide ? 'sm:col-span-2' : ''
+							}`}
 						>
 							<h3 className="mb-2 text-lg font-semibold text-slate-900 dark:text-slate-200">
 								{cat.name}

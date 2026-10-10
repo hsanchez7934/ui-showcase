@@ -1,7 +1,8 @@
 'use client'
 
-import React from 'react'
+import React, {ReactNode} from 'react'
 import {motion, useReducedMotion} from 'framer-motion'
+import {FaCircleCheck, FaCircleInfo, FaCircleXmark, FaTriangleExclamation} from 'react-icons/fa6'
 import './styles.css'
 import {instantTransition, tween} from '../motion/motionConfig'
 
@@ -10,6 +11,13 @@ export type ToastType = 'success' | 'warning' | 'error' | 'neutral'
 interface ToastProps {
 	type: ToastType
 	message: string
+}
+
+const icons: Record<ToastType, ReactNode> = {
+	success: <FaCircleCheck aria-hidden />,
+	warning: <FaTriangleExclamation aria-hidden />,
+	error: <FaCircleXmark aria-hidden />,
+	neutral: <FaCircleInfo aria-hidden />
 }
 
 const Toast: React.FC<ToastProps> = ({type, message}) => {
@@ -26,8 +34,9 @@ const Toast: React.FC<ToastProps> = ({type, message}) => {
 			role="status"
 			aria-live="polite"
 		>
-			<span className="toast-badge text-base md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">{type}</span>
-			<span className="toast-message text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">{message}</span>
+			<span className="toast-icon">{icons[type]}</span>
+			<span className="sr-only">{type}. </span>
+			<span className="toast-message">{message}</span>
 		</motion.div>
 	)
 }

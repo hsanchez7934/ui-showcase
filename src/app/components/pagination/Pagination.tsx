@@ -45,15 +45,9 @@ const Pagination: React.FC<PaginationProps> = ({
 	}
 
 	return (
-		<div
-			style={{
-				display: 'flex',
-				gap: '8px',
-				alignItems: 'center'
-			}}
-		>
+		<div className="flex max-w-full flex-wrap items-center justify-center gap-1">
 			<button
-				className="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl w-[80px] md:w-[140px] xl:w-[170px] paginationBtn"
+				className="paginationBtn"
 				onClick={() => handleClick(currentPage - 1)}
 				disabled={currentPage === 1}
 				style={{
@@ -66,7 +60,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
 			{getVisiblePages().map((page) => (
 				<button
-					className={`${page === currentPage ? 'text-white' : 'text-black dark:text-white'} text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl w-auto paginationBtn`}
+					className={`${page === currentPage ? 'text-white' : 'text-black dark:text-white'} paginationBtn`}
 					key={page}
 					onClick={() => handleClick(page)}
 					style={{
@@ -79,7 +73,7 @@ const Pagination: React.FC<PaginationProps> = ({
 			))}
 
 			<button
-				className="text-md md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl w-[80px] md:w-[140px] xl:w-[170px] paginationBtn"
+				className="paginationBtn"
 				onClick={() => handleClick(currentPage + 1)}
 				disabled={currentPage === totalPages}
 				style={{

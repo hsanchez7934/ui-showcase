@@ -16,6 +16,7 @@ import {
 } from '../motion/motionConfig'
 
 const links = [
+	{href: '/playground', text: 'Playground'},
 	{href: '/not-found', text: '404 Page'},
 	{href: '/collections-grid', text: 'Collections Grid'},
 	{href: '/features-section-grid', text: 'Features (Grid)'},

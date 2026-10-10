@@ -5,18 +5,18 @@ import clsx from 'clsx'
 import './styles.css'
 
 const getButtonColor = (key: string) => {
-	const bgColor = 'bg-white'
 	switch (key) {
 		case 'primary':
 			return 'bg-indigo-700'
 		case 'destructive':
 			return 'bg-red-600'
+		case 'secondary':
 		case 'tertiary':
-			return 'bg-inherit'
+			return ''
 		default:
 			break
 	}
-	return bgColor
+	return 'bg-white'
 }
 
 const getButtonSize = (key: string) => {
@@ -58,9 +58,8 @@ const getButtonHoverStyles = (key: string) => {
 		case 'destructive':
 			return 'hover:bg-red-700'
 		case 'secondary':
-			return 'hover:bg-gray-100'
 		case 'tertiary':
-			return 'hover:bg-gray-200'
+			return ''
 		default:
 			break
 	}
@@ -190,7 +189,7 @@ export default function Button(props: Props) {
 			<button
 				aria-label={ariaLabel}
 				disabled={btnDisabledState || false}
-				className={`${getLinkBtnClasses(buttonType)} ${getLinkBtnSize(buttonSize)} ${clsx(classes)}`}
+				className={`inline-flex items-center gap-2 ${getLinkBtnClasses(buttonType)} ${getLinkBtnSize(buttonSize)} ${clsx(classes)}`}
 			>
 				{renderedLeftIcon()}
 				{buttonText || ''}
@@ -201,7 +200,7 @@ export default function Button(props: Props) {
 
 	return (
 		<button
-			className={`inline-flex ${getButtonTextSize(buttonSize)} ${getButtonSize(buttonSize)} ${getButtonColor(buttonType)} ${getButtonHoverStyles(buttonType)} ${getButtonClass(buttonType)} ${clsx(classes)}`}
+			className={`inline-flex items-center gap-2 ${getButtonTextSize(buttonSize)} ${getButtonSize(buttonSize)} ${getButtonColor(buttonType)} ${getButtonHoverStyles(buttonType)} ${getButtonClass(buttonType)} ${clsx(classes)}`}
 			aria-label={ariaLabel}
 			disabled={btnDisabledState || false}
 			onClick={onClick}

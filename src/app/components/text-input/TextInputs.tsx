@@ -2,7 +2,8 @@
 
 import clsx from 'clsx'
 import './styles.css'
-import {ReactNode} from 'react'
+import {ReactNode, useEffect, useState} from 'react'
+import {FaEnvelope, FaEye, FaEyeSlash, FaLock, FaMagnifyingGlass, FaXmark} from 'react-icons/fa6'
 
 // The text input component should support the following features:
 
@@ -97,6 +98,7 @@ interface Props {
 	inputSize: InputSize
 	classes?: string
 	iconColor?: string
+	showLeftIcon?: boolean
 }
 
 export default function TextInputs(props: Props) {
@@ -110,124 +112,98 @@ export default function TextInputs(props: Props) {
 		title,
 		placeholderText,
 		autofocusState,
-		inputSize,
-		classes
+		classes,
+		showLeftIcon = true
 	} = props
+	const [value, setValue] = useState(props.valueAttr ?? '')
+	const [passwordVisible, setPasswordVisible] = useState(false)
 
-	const getInputSize = (key: string) => {
-		console.log(key)
-		// switch (key) {
-		// 	case 'small':
-		// 		return 'h-[40px] w-[300] text-base'
-		// 	case 'medium':
-		// 		return 'h-[50px] w-[400] text-lg'
-		// 	case 'large':
-		// 		return 'h-[60px] w-[500] text-xl'
-		// 	default:
-		// 		break
-		// }
-		return 'h-[40px] w-[300px] text-base sm:h-[45px] sm:w-[350px] sm:h-[45px] sm:w-[350px] lg:h-[55px] lg:w-[450] xl:h-[60px] xl:w-[500] 2xl:h-[65px] 2xl:w-[550]'
-	}
+	useEffect(() => {
+		setPasswordVisible(false)
+	}, [inputType])
 
-	const getTextSize = (key: string) => {
-		console.log(key)
-		// switch (key) {
-		// 	case 'small':
-		// 		return 'text-base'
-		// 	case 'medium':
-		// 		return 'text-lg'
-		// 	case 'large':
-		// 		return 'text-xl'
-		// 	default:
-		// 		break
-		// }
-		return 'text-base sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl'
-	}
-
-	const getLeftPadding = () => {
-		return `${props?.iconLeft ? 'pl-[40px] lg:pl-[50px] xl:pl-[60px] 2xl:pl-[70px]' : 'pl-[15px]'}`
-	}
-
-	const getRightPadding = () => {
-		return `${props?.iconRight ? 'pr-[40px] lg:pr-[50px] xl:pr-[60px] 2xl:pr-[70px]' : 'pr-[15px]'}`
-	}
-
-	const getIconLeft = () => {
-		let markup = <></>
-
-		if (props?.iconLeft) {
-			markup = (
-				<div
-					style={{
-						position: 'absolute',
-						left: '0px',
-						top: '0px',
-						height: '100%',
-						color: `${props?.iconColor || '#e6e6e6'}`
-					}}
-					className="w-10 lg:w-12 xl:w-14 2xl:w-16"
-				>
-					<div className="flex items-center justify-center h-full w-full text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
-						{props.iconLeft}
-					</div>
-				</div>
-			)
-		}
-
-		return markup
-	}
-
-	const getIconRight = () => {
-		let markup = <></>
-
-		if (props?.iconRight) {
-			markup = (
-				<div
-					style={{
-						position: 'absolute',
-						right: '0px',
-						top: '0px',
-						height: '100%',
-						color: `${props?.iconColor || '#e6e6e6'}`
-					}}
-					className="w-10 lg:w-12 xl:w-14 2xl:w-16"
-				>
-					<div className="flex items-center justify-center h-full w-full text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
-						{props.iconRight}
-					</div>
-				</div>
-			)
-		}
-
-		return markup
-	}
+	const isPassword = inputType === 'password'
+	const canClear = (inputType === 'text' || inputType === 'email') && value.length > 0
+	const leftIcon = showLeftIcon ? (props.iconLeft ?? defaultLeftIcon(inputType)) : null
+	const hasRightAction = isPassword || canClear || Boolean(props.iconRight)
+	const iconStyle = props.iconColor ? {color: props.iconColor} : undefined
 
 	return (
-		<div
-			className={`flex flex-col inputDivContainer ${clsx(classes)}`}
-			style={{fontFamily: 'Rubik'}}
-		>
-			<label htmlFor={labelForID} className={`${getTextSize(inputSize)} pb-2.5 text-neutral-600`}>
+		<div className={`inputDivContainer flex flex-col ${clsx(classes)}`}>
+			<label htmlFor={labelForID} className="inputLabel text-slate-700 dark:text-slate-200">
 				{labelText}
 			</label>
-			<div className="h-auto relative">
-				{getIconLeft()}
+			<div className="relative">
+				{leftIcon ? (
+					<div className="inputIcon inputIconLeft" style={iconStyle}>
+						{leftIcon}
+					</div>
+				) : null}
 				<input
 					disabled={props?.disabledState || false}
 					id={inputID}
-					type={inputType}
+					type={isPassword && passwordVisible ? 'text' : inputType}
 					maxLength={maxAttr}
 					required={requiredState}
 					title={title}
 					placeholder={placeholderText}
 					autoFocus={autofocusState || false}
-					className={`${getInputSize(inputSize)} ${getLeftPadding()} ${getRightPadding()} ${getTextSize(inputSize)} ${clsx(classes)}`}
+					value={value}
+					onChange={(event) => setValue(event.target.value)}
+					className={`inputField ${leftIcon ? 'hasLeftIcon' : ''} ${hasRightAction ? 'hasRightIcon' : ''} ${
+						props.errorText ? 'inputFocusError' : 'inputFocusNormal'
+					} ${clsx(classes)}`}
 				/>
-				{getIconRight()}
+				{isPassword ? (
+					<button
+						type="button"
+						className="inputIconButton"
+						style={iconStyle}
+						aria-label={passwordVisible ? 'Hide password' : 'Show password'}
+						aria-pressed={passwordVisible}
+						disabled={props?.disabledState || false}
+						onMouseDown={(event) => event.preventDefault()}
+						onClick={() => setPasswordVisible((current) => !current)}
+					>
+						{passwordVisible ? <FaEyeSlash className="size-4" aria-hidden /> : <FaEye className="size-4" aria-hidden />}
+					</button>
+				) : null}
+				{canClear ? (
+					<button
+						type="button"
+						className="inputIconButton"
+						style={iconStyle}
+						aria-label="Clear"
+						disabled={props?.disabledState || false}
+						onMouseDown={(event) => event.preventDefault()}
+						onClick={() => setValue('')}
+					>
+						<FaXmark className="size-4" aria-hidden />
+					</button>
+				) : null}
+				{!isPassword && !canClear && props.iconRight ? (
+					<div className="inputIcon inputIconRight" style={iconStyle}>
+						{props.iconRight}
+					</div>
+				) : null}
 			</div>
-			{props?.hintText && <p className={`text-neutral-400 ${getTextSize(inputSize)} pt-1.5`}>{props.hintText}</p>}
-			{props?.errorText && <p className={`text-red-600 ${getTextSize(inputSize)} pt-1.5`}>{props.errorText}</p>}
-			<div></div>
+			{props?.hintText && (
+				<p className="inputHint text-slate-500 dark:text-slate-400">{props.hintText}</p>
+			)}
+			{props?.errorText && <p className="inputHint text-red-600 dark:text-red-400">{props.errorText}</p>}
 		</div>
 	)
+}
+
+function defaultLeftIcon(inputType: string) {
+	if (inputType === 'password') {
+		return <FaLock className="size-4" aria-hidden />
+	}
+	if (inputType === 'email') {
+		return <FaEnvelope className="size-4" aria-hidden />
+	}
+	if (inputType === 'text') {
+		return <FaMagnifyingGlass className="size-4" aria-hidden />
+	}
+	return null
 }

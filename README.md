@@ -6,6 +6,8 @@ A curated library of production-ready UI views and components built to demonstra
 
 Each page includes an isolated demo you can browse from the landing page or the site navigation. Featured views include hero sections, feature grids, pricing layouts, media cards, team sections, collections grids, and a custom 404 page.
 
+The [component playground](https://ui-showcase-three.vercel.app/playground) lets you try the interactive primitives — buttons, badges, checkboxes, dropdowns, pagination, radio cards, tabs, text inputs, textareas, toasts, and tooltips — and change their options live.
+
 ## Tech Stack
 
 - [Next.js](https://nextjs.org/) (App Router)

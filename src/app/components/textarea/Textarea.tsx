@@ -1,6 +1,7 @@
 'use client'
 
 import React, {useState, FocusEvent} from 'react'
+import {FaXmark} from 'react-icons/fa6'
 import './styles.css'
 
 interface TextareaProps {
@@ -47,18 +48,31 @@ const Textarea: React.FC<TextareaProps> = ({
 	return (
 		<div className="textarea-wrapper">
 			<label className="textarea-label">{label}</label>
-			<textarea
-				className="custom-textarea"
-				value={value}
-				onChange={(e) => onChange(e.target.value)}
-				onFocus={handleFocus}
-				onBlur={handleBlur}
-				placeholder={placeholder}
-				style={{
-					boxShadow: getBoxShadow(),
-					borderColor: error ? '#dc2626' : '#ccc'
-				}}
-			/>
+			<div className="textarea-field">
+				<textarea
+					className={`custom-textarea${value.length > 0 ? ' has-clear' : ''}`}
+					value={value}
+					onChange={(e) => onChange(e.target.value)}
+					onFocus={handleFocus}
+					onBlur={handleBlur}
+					placeholder={placeholder}
+					style={{
+						boxShadow: getBoxShadow(),
+						borderColor: error ? '#dc2626' : '#ccc'
+					}}
+				/>
+				{value.length > 0 ? (
+					<button
+						type="button"
+						className="textarea-clear"
+						aria-label="Clear"
+						onMouseDown={(event) => event.preventDefault()}
+						onClick={() => onChange('')}
+					>
+						<FaXmark className="size-4" aria-hidden />
+					</button>
+				) : null}
+			</div>
 			<div className="textarea-footer">
 				<span className="textarea-error">{error}</span>
 				<span className={`textarea-count ${isOverLimit ? 'over-limit' : ''}`}>
